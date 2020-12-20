@@ -13,8 +13,16 @@ def test_create_post():
                 "body": "body1",
                 "date": "2010-04-01T00:00"
             }), content_type="application/json"
-        )
+                                   )
         add.assert_called_once()
         commit.assert_called_once()
     assert r.status_code == 201
     assert r.json['title'] == "Title1"
+
+
+def test_read_all_post():
+    with mock.patch("app.db.session.query") as query:
+        query.return_value.all.return_value = []
+        r = app.test_client().get('/posts')
+    assert r.status_code == 200
+    assert len(r.json) == 0

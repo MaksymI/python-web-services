@@ -1,7 +1,7 @@
 from flask_restful import Resource
 from flask import request
 from marshmallow.exceptions import ValidationError
-from . import api, db, schemas
+from . import api, db, schemas, models
 
 post_schema = schemas.PostSchema()
 
@@ -19,7 +19,8 @@ class PostListApi(Resource):
         return post_schema.dump(post), 201
 
     def get(self):
-        return {"message": "Hello"}
+        posts = db.session.query(models.Post).all()
+        return post_schema.dump(posts, many=True)
 
 
 api.add_resource(PostListApi, '/posts')
