@@ -1,7 +1,15 @@
 import json
+import datetime
 from unittest import mock
 
 from app import app
+
+
+class MockPost():
+    def __init__(self):
+        self.title = "Title1"
+        self.body = ""
+        self.date = datetime.datetime.strptime("2010-04-01T00:00", "%Y-%m-%dT%H:%M")
 
 
 def test_create_post():
@@ -26,3 +34,11 @@ def test_read_all_post():
         r = app.test_client().get('/posts')
     assert r.status_code == 200
     assert len(r.json) == 0
+
+
+def test_read_post():
+    with mock.patch("app.db.session.query") as query:
+        query.return_value.filter_by.return_value.first.return_value = MockPost()
+        r = app.test_client().get('/posts/123')
+    assert r.status_code == 200
+    assert r.json['title'] == "Title1"

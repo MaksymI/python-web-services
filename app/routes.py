@@ -23,4 +23,13 @@ class PostListApi(Resource):
         return post_schema.dump(posts, many=True)
 
 
+class PostApi(Resource):
+    def get(self, uuid):
+        post = db.session.query(models.Post).filter_by(uuid=uuid).first()
+        if post is None:
+            return "", 404
+        return post_schema.dump(post), 200
+
+
 api.add_resource(PostListApi, '/posts')
+api.add_resource(PostApi, '/posts/<uuid>')
