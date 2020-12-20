@@ -56,3 +56,13 @@ def test_update_post():
         )
     assert r.status_code == 200
     assert r.json['title'] == "Title2"
+
+
+def test_delete_post():
+    with mock.patch("app.db.session.query") as query, \
+            mock.patch("app.db.session.delete") as delete, \
+            mock.patch("app.db.session.commit") as commit:
+        query.return_value.filter_by.return_value.first.return_value = MockPost()
+        r = app.test_client().delete('/posts/123')
+        assert r.status_code == 204
+
