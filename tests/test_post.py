@@ -42,3 +42,17 @@ def test_read_post():
         r = app.test_client().get('/posts/123')
     assert r.status_code == 200
     assert r.json['title'] == "Title1"
+
+
+def test_update_post():
+    with mock.patch("app.db.session.query") as query, \
+            mock.patch("app.db.session.add") as add, \
+            mock.patch("app.db.session.commit") as commit:
+        query.return_value.filter_by.return_value.first.return_value = MockPost()
+        r = app.test_client().put(
+            '/posts/123',
+            data=json.dumps({"title": "Title2"}),
+            content_type="application/json"
+        )
+    assert r.status_code == 200
+    assert r.json['title'] == "Title2"
