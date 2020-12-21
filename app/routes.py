@@ -1,10 +1,11 @@
 from flask_restful import Resource
 from flask import request
 from marshmallow.exceptions import ValidationError
+from sqlalchemy.exc import IntegrityError
 from . import api, db, schemas, models
 
 post_schema = schemas.PostSchema()
-
+user_schema = schemas.UserSchema()
 
 class PostListApi(Resource):
 
@@ -47,6 +48,22 @@ class PostApi(Resource):
         db.session.commit()
         return "", 204
 
+class UserListApi(Resource):
+    def post(self):
+        try:
+            user = user_schema.load(request.json, session=db.session)
+        except ValidationError as e:
+            return {"message": str(e)}, 400
+
+        try:
+            db.session.add(user)
+            db.session.commit()
+        except IntegrityError:
+            return {"message": "User exists"}, 409
+
+        return user_schema.dump(user), 201
+
 
 api.add_resource(PostListApi, '/posts')
 api.add_resource(PostApi, '/posts/<uuid>')
+api.add_resource(UserListApi, '/users')

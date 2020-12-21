@@ -3,3 +3,5 @@ curl -X POST http://localhost:5000/posts -H "Content-type: application/json" -d 
 curl http://localhost:5000/posts -v
 
 curl -X PUT http://localhost:5000/posts/98da6a62-cb12-4e89-9d8d-14726e9fe261 -H "Content-type: application/json" -d '{"title": "Title2"}' -v
+
+curl -X POST http://localhost:5000/users -H "Content-type: application/json" -d '{"login": "Max", "email": "m@a.org", "password": "2"}' -v
