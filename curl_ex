@@ -7,8 +7,28 @@ curl -X PUT http://localhost:5000/posts/98da6a62-cb12-4e89-9d8d-14726e9fe261 -H 
 curl -X POST http://localhost:5000/users -H "Content-type: application/json" -d '{"login": "Max", "email": "m@a.org", "password": "2"}' -v
 
 curl http://localhost:5000/login --user u:1 -v
-curl http://localhost:5000/login --user 'Max ':2 -v
+curl http://localhost:5000/login --user 'Max':2 -v
 
 eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiNDE3NWJmM2EtYmM2Yy00ZDY0LWJkMzMtYzk5N2EyYWY0M2U3IiwiZXhwIjoxNjA4NTk2Mzc2fQ.YZHKUYLYU5hM50WkhQ1wBLs-f2m6sAn6vWoqpJTtfgk
 
 curl http://localhost:5000/posts -H "X-Api-Key:eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiNDE3NWJmM2EtYmM2Yy00ZDY0LWJkMzMtYzk5N2EyYWY0M2U3IiwiZXhwIjoxNjA4NTk2Mzc2fQ.YZHKUYLYU5hM50WkhQ1wBLs-f2m6sAn6vWoqpJTtfgk" -v
+
+docker run --rm --name postgres -p 5432:5432 -e POSTGRES_PASSWORD=1 -v  /Users/maksymizmailov/python-learn/python-web-services/data1:/var/lib/postgresql/data -d postgres
+docker exec -it postgres bash
+psql -U postgres -h localhost -W
+create user blog;
+create database blog;
+grant all privileges on database blog to blog;
+\q
+exit
+
+drop database blog;
+drop user blog;
+create user blog with password '1';
+create database blog;
+
+
+curl -X POST http://localhost:5000/users -H "Content-type: application/json" -d '{"login": "Max", "email": "m@a.org", "password": "2"}' -v
+curl http://localhost:5000/login --user 'Max':2 -v
+curl -X POST http://localhost:5000/posts -H "Content-type: application/json" -d '{"title": "Title1", "body": "test data1", "date": "2020-12-20T00:00"}' -H "X-Api-Key:eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMDkzNzYyMzYtYzI2MC00ZGEwLThkYzktMDkzOTQxNDUxYmFlIiwiZXhwIjoxNjA4OTMyODQ4fQ.yhCiUWSkeCjA6xJFuNkLz8Z8JrcYbpEtCIoVSuQ-MJQ" -v
+
