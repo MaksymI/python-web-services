@@ -10,8 +10,15 @@ class UserSchema(SQLAlchemyAutoSchema):
         load_instance = True
 
 
+class AuthorSchema(SQLAlchemyAutoSchema):
+    class Meta:
+        model = models.User
+        exclude = 'id', 'password',
+        load_instance = True
+
+
 class PostSchema(SQLAlchemyAutoSchema):
-    author = fields.Nested(UserSchema)
+    author = fields.Nested(AuthorSchema)
 
     class Meta:
         model = models.Post
