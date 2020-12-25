@@ -124,3 +124,7 @@ dmypy.json
 
 # PyCharm settings
 .idea
+
+# DB files
+/data/
+/data1/
