@@ -21,7 +21,7 @@ class PostListApi(Resource):
         return post_schema.dump(post), 201
 
     @auth.token_required
-    def get(self):
+    def get(self, get):
         posts = db.session.query(models.Post).all()
         return post_schema.dump(posts, many=True)
 

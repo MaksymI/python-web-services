@@ -33,6 +33,10 @@ class Post(db.Model):
     body = db.Column(db.Text)
     date = db.Column(db.DateTime)
     uuid = db.Column(db.String(36), unique=True)
+    author_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    # не поле таблицы
+    # можно брать author_id и фильтровать юзеров - но это не эффективно - надо два запроса вместо одного отправлять
+    author = db.relationship('User')
 
     def __init__(self, title, body, date):
         self.title = title

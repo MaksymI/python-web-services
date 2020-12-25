@@ -34,6 +34,6 @@ def token_required(f):
         user = db.session.query(models.User).filter_by(uuid=uuid).first()
         if not user:
             return AUTH_REQUIRED
-        return f(self, *args, **kwargs)
+        return f(self, user, *args, **kwargs)
     return wrapper
 
