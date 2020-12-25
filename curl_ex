@@ -32,3 +32,8 @@ curl -X POST http://localhost:5000/users -H "Content-type: application/json" -d 
 curl http://localhost:5000/login --user 'Max':2 -v
 curl -X POST http://localhost:5000/posts -H "Content-type: application/json" -d '{"title": "Title1", "body": "test data1", "date": "2020-12-20T00:00"}' -H "X-Api-Key:eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMDkzNzYyMzYtYzI2MC00ZGEwLThkYzktMDkzOTQxNDUxYmFlIiwiZXhwIjoxNjA4OTMyODQ4fQ.yhCiUWSkeCjA6xJFuNkLz8Z8JrcYbpEtCIoVSuQ-MJQ" -v
 curl -X POST http://localhost:5000/posts -H "Content-type: application/json" -d '{"title": "Title2", "body": "test data2", "date": "2020-12-25T00:00"}' -H "X-Api-Key:eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMDkzNzYyMzYtYzI2MC00ZGEwLThkYzktMDkzOTQxNDUxYmFlIiwiZXhwIjoxNjA4OTMyODQ4fQ.yhCiUWSkeCjA6xJFuNkLz8Z8JrcYbpEtCIoVSuQ-MJQ" -v
+
+gunicorn blog:app
+
+curl -X POST http://localhost:8000/users -H "Content-type: application/json" -d '{"login": "Max", "email": "m@a.org", "password": "2"}' -v
+
