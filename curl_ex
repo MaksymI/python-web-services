@@ -10,3 +10,5 @@ curl http://localhost:5000/login --user u:1 -v
 curl http://localhost:5000/login --user 'Max ':2 -v
 
 eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiNDE3NWJmM2EtYmM2Yy00ZDY0LWJkMzMtYzk5N2EyYWY0M2U3IiwiZXhwIjoxNjA4NTk2Mzc2fQ.YZHKUYLYU5hM50WkhQ1wBLs-f2m6sAn6vWoqpJTtfgk
+
+curl http://localhost:5000/posts -H "X-Api-Key:eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiNDE3NWJmM2EtYmM2Yy00ZDY0LWJkMzMtYzk5N2EyYWY0M2U3IiwiZXhwIjoxNjA4NTk2Mzc2fQ.YZHKUYLYU5hM50WkhQ1wBLs-f2m6sAn6vWoqpJTtfgk" -v

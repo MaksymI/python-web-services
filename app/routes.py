@@ -2,10 +2,11 @@ from flask_restful import Resource
 from flask import request
 from marshmallow.exceptions import ValidationError
 from sqlalchemy.exc import IntegrityError
-from . import api, db, schemas, models
+from . import api, db, schemas, models, auth
 
 post_schema = schemas.PostSchema()
 user_schema = schemas.UserSchema()
+
 
 class PostListApi(Resource):
 
@@ -19,6 +20,7 @@ class PostListApi(Resource):
         db.session.commit()
         return post_schema.dump(post), 201
 
+    @auth.token_required
     def get(self):
         posts = db.session.query(models.Post).all()
         return post_schema.dump(posts, many=True)
